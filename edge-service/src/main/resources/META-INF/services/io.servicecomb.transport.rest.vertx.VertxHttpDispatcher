@@ -1,0 +1,3 @@
+com.huawei.cse.houseapp.edge.ApiDispatcher
+com.huawei.cse.houseapp.edge.WebPageDispatcher
+com.huawei.cse.houseapp.edge.LoginDispatcher

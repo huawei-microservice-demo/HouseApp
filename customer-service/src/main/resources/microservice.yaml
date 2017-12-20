@@ -1,0 +1,30 @@
+cse-config-order: 100
+APPLICATION_ID: houseapp
+service_description:
+  name: customer-service
+  version: 0.0.1
+cse:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+      instance:
+        watch: false
+  rest:
+    address: 0.0.0.0:9093
+    server:
+      thread-count: 10
+
+  tcc:
+    transaction:
+      repository: com.huawei.paas.cse.tcc.repository.RedisTransactionRepository
+      redis:
+        host: 10.57.65.159
+        port: 6379
+        password: testtesttest
+
+  handler:
+    chain:
+      Provider:
+        default: perf-stats,qps-flowcontrol-provider,bizkeeper-provider,tcc-provider,twoPC-provider
+      Consumer:
+        default: perf-stats,qps-flowcontrol-consumer,loadbalance,bizkeeper-consumer,tcc-consumer,twoPC-consumer

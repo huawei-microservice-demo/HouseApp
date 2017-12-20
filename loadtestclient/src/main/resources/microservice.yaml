@@ -1,0 +1,26 @@
+cse-config-order: 100
+APPLICATION_ID: houseapp
+service_description:
+  name: loadtestclient
+  version: 0.0.1
+cse:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+      instance:
+        watch: false
+  config:
+    client:
+      refreshMode: 1
+
+  rest:
+    address: 0.0.0.0:8088
+    server:
+      thread-count: 10
+
+  handler:
+    chain:
+      Provider:
+        default: perf-stats
+      Consumer:
+        default: perf-stats,loadbalance
