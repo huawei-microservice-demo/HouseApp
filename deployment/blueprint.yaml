@@ -1,0 +1,360 @@
+tosca_definitions_version: fusionstage_tosca_version_2_1
+
+inputs:
+  edge-service-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/edge-service:2.2.1
+    label: images
+  user-service-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/user-service:2.1.2
+    label: images
+  product-service-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/product-service:2.2.2
+    label: images
+  customer-website-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/customer-website:2.1.2
+    label: images
+  customer-service-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/customer-service:2.1.2
+    label: images
+  account-service-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/account-service:2.1.2
+    label: images
+  loadtestclient-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/loadtestclient:2.1.2
+    label: images
+  product-service-beta-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/product-service-beta:2.2.1
+    label: images
+  tx-coordinator-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/tx-coordinator:2.1.0
+    label: images
+    
+  nodeport:
+    default: 31080
+  image-pull-policy:
+    default: IfNotPresent
+  monitoring-group:
+    default: vanke
+  application-id:
+    default: vanke-app
+  instance:
+    default: 2
+
+node_templates:
+  edge-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: edge-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+
+  edge-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: edge-service-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+        ports:
+          - containerPort: 18080
+        serviceSpec:
+          ports:
+            - port: 18080
+              nodePort: {get_input: nodeport}
+          type: NodePort
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+
+  user-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: user-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+
+  user-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: user-service-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+
+  product-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: product-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+
+  product-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: product-service-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+
+  customer-website:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: customer-web-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+
+  customer-web-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: customer-website-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+
+  customer-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: customer-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+
+  customer-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: customer-service-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+
+  account-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: account-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+
+  account-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: account-service-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+
+  loadtest-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: loadtest-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+
+  loadtest-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: loadtestclient-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+
+  product-service-beta:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: product-beta-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+
+  product-beta-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: product-service-beta-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+
+  tx-coordinator:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: tx-coordinator-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+
+  tx-coordinator-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: tx-coordinator-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+
+policies:
+  edge-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - edge-service
+
+  user-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - user-service
+
+  product-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - product-service
+
+  customer-web-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - customer-website
+
+  customer-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - customer-service
+
+  account-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - account-service
+
+  loadtest-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - loadtest-service
+
+  product-service-beta-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - product-service-beta
+
+  tx-coordinator-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - tx-coordinator
+
+outputs:
+  edge-service:
+    value: {get_attribute: [edge-service, Service, ports, 0, nodePort]}
