@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS houseapp_product_db;
+CREATE DATABASE IF NOT EXISTS product_db;
 
-USE houseapp_product_db;
+USE product_db;
 
 DROP TABLE IF EXISTS T_PRODUCT;
 

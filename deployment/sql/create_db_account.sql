@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS houseapp_account_db;
+CREATE DATABASE IF NOT EXISTS account_db;
 
-USE houseapp_account_db;
+USE account_db;
 
 DROP TABLE IF EXISTS T_ACCOUNT;
 

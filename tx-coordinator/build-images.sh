@@ -3,8 +3,9 @@
 function build_images() {
 	local path=$1
 	local tag=$2
-	local log_file=$3
-	local services=`ls ${path} | egrep "*-service|*-website"`
+	local log_file=$4
+	local pattern=$3
+	local services=`ls ${path} | egrep  "${pattern}"`
 
 	for service in $services; do
 		echo "start build image ${service}:${tag}"
@@ -38,8 +39,9 @@ function push_images() {
 	local path=$1
 	local tag=$2
 	local remote_repo=$3
-	local log_file=$4
-	local services=`ls ${path} | egrep "*-service|*-website"`
+	local pattern=$4
+	local log_file=$5
+	local services=`ls ${path} | egrep "${pattern}"`
 	for service in ${services}; do
 		echo "start push image ${service}:${tag}"
 		image_id=`docker images -q "${service}:${tag}"`
@@ -70,20 +72,23 @@ fi
 
 RED='\033[0;31m'
 NC='\033[0m'
+SERVICES_PATTERN="*-service|*-website|loadtestclient|tx-coordinator"
+
 CMD=$1
 TAG=$2
 REMOTE_REPO=$3
 REMOTE_REPO="${REMOTE_REPO:-"100.125.0.198:20202/maoxuepeng6459"}"
+
 RELATIVE_PATH="`dirname $0`"
 cd "${RELATIVE_PATH}"
 ABSOLUTELY_PATH=`pwd`
 LOG_FILE="${ABSOLUTELY_PATH}/build-images.log"
 
 if [ "${CMD}" = "build" ]; then
-	build_images "${ABSOLUTELY_PATH}/../" "${TAG}" "${LOG_FILE}"
+	build_images "${ABSOLUTELY_PATH}/../" "${TAG}"  "${SERVICES_PATTERN}" "${LOG_FILE}"
 	exit $?
 elif [ "${CMD}" = "push" ]; then
-	push_images "${ABSOLUTELY_PATH}/../" "${TAG}" "${REMOTE_REPO}" "${LOG_FILE}"
+	push_images "${ABSOLUTELY_PATH}/../" "${TAG}" "${REMOTE_REPO}"  "${SERVICES_PATTERN}" "${LOG_FILE}"
 	exit $?
 else
 	echo "Unknown command ${CMD}"
