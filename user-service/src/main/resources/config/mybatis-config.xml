@@ -3,12 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties resource="dbcp.properties" />
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC" />
             <dataSource type="POOLED">
-                <property name="driver" value="${db.driver}" />
+                <property name="driver" value="com.mysql.jdbc.Driver" />
                 <property name="url" value="${db.url}" />
                 <property name="username" value="${db.username}" />
                 <property name="password" value="${db.password}" />

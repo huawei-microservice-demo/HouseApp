@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS houseapp_user_db;
+CREATE DATABASE IF NOT EXISTS user_db;
 
-USE houseapp_user_db;
+USE user_db;
 
 DROP TABLE IF EXISTS T_USER;
 

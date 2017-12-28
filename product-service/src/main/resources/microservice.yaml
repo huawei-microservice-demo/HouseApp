@@ -6,25 +6,23 @@ service_description:
 cse:
   service:
     registry:
-      address: http://127.0.0.1:30100
+      address: https://cse.cn-north-1.myhwclouds.com:443
       instance:
         watch: false
   config:
     client:
+      serverUri: https://cse.cn-north-1.myhwclouds.com:443
       refreshMode: 1
+      refresh_interval: 5000
+  monitor:
+    client:
+      serverUri: https://cse.cn-north-1.myhwclouds.com:443
 
   rest:
     address: 0.0.0.0:8089
     server:
       thread-count: 10
 
-  tcc:
-    transaction:
-      repository: com.huawei.paas.cse.tcc.repository.RedisTransactionRepository
-      redis:
-        host: 10.57.65.159
-        port: 6379
-        password: testtesttest
   handler:
     chain:
       Provider:
