@@ -159,7 +159,7 @@ under the License.
      -->
     <mirror>
       <id>mirrorId</id>
-      <mirrorOf>central</mirrorOf>
+      <mirrorOf>*</mirrorOf>
       <name>Mirror of central repository.</name>
       <url>http://117.78.32.218/nexus/content/groups/public</url>
     </mirror>
