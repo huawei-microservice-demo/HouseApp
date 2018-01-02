@@ -6,7 +6,7 @@
 2. 到项目根目录，执行 ```maven install -f pom.xml -s settings.xml ``` 编译
 
 #### 2. build docker images
-1. 到项目的 deployment 目录
+1. 到项目的根目录
 2. 执行 ```bash build-images.sh build <your tag>``` 本地构建镜像
 3. 在 ServiceStage 镜像仓库创建 namespace/仓库 
 4. 执行 docker login 登录到远程镜像中心
