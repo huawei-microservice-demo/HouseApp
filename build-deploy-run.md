@@ -35,15 +35,15 @@ Redis版本：3.0.7
 #### 3. 创建连接CSE注册中心所需凭证
 微服务启动后CSE的SDK会自动连接CSE的注册中心，微服务接入到注册中心需要用户的AK/SK作为认证凭证。使用 ServiceStage 的 ConfigMap 对象存储此凭证。
 
-[创建 ConfigMap ](https://servicestage.huaweicloud.com/servicestage/#/stage/configs/newcreate/596aeb28-de26-11e7-a506-0255ac101e21/clusterName/default/configsName/create)，格式如下：
+用户基于 [cse-credentials.yaml](deployment/configmap-templates/cse-credentials.yaml) 模板文件，将自己实际的AK/SK填到文件中，然后在 ServiceStage 上 [创建 ConfigMap ](https://servicestage.huaweicloud.com/servicestage/#/stage/configs/newcreate/596aeb28-de26-11e7-a506-0255ac101e21/clusterName/default/configsName/create)
 
+[cse-credentials.yaml](deployment/configmap-templates/cse-credentials.yaml) 模板文件内容如下：
 ```
 kind: ConfigMap
 apiVersion: v1
 metadata:
   name: cse-credential
   namespace: default
-  selfLink: /api/v1/namespaces/default/secrets/cse-credential
 data:
   certificate.yaml: |
     cse:
@@ -59,28 +59,33 @@ data:
 
 #### 4. 创建访问RDS（MySQL）所需的凭证
 访问MySQL的凭证保存在 ServiceStage 的 ConfigMap 中，通过环境变量的方式导出给应用使用。
-本应用中， user-service/account-service/product-service 使用到了数据库 user_db/account_db/product_db ，需要创建三个 ConfigMap ，名称分别为：**mysql-userdb/mysql-accountdb/mysql-productdb** 。
+本应用中， user-service/account-service/product-service 使用到了数据库 user_db/account_db/product_db ，需要创建三个 ConfigMap，三个 ConfigMap 的模板下载地址：
+- [mysql-userdb.yaml](deployment/configmap-templates/mysql-userdb.yaml)
+- [mysql-accountdb.yaml](deployment/configmap-templates/mysql-accountdb.yaml)
+- [mysql-productdb.yaml](deployment/configmap-templates/mysql-productdb.yaml)
 
-保存 MySQL 访问凭证的 ConfigMap 模板如下：
+下面是 [mysql-userdb.yaml](deployment/configmap-templates/mysql-userdb.yaml) 模板的内容，**需要用户将data内的值修改为实际环境中对应的值**：
 
 ```
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: mysql-credential-template
+  name: mysql-accountdb
   namespace: default
 data:
-  db.host: "${host}"
-  db.port: "${port}"
-  db.dbname: ${dbname}
-  db.username: ${username}
-  db.password: ${password}
+  db.host: "192.168.244.231"
+  db.port: "8635"
+  db.dbname: account_db
+  db.username: root
+  db.password: password
 ```
 
 #### 5. 创建访问DCS（Redis）所需的凭证
 访问Redis的凭证保存在 ServiceStage 的 ConfigMap 中，通过环境变量方式导出给应用使用。
 本应用中， user-service/account-service/product-service/customer-service 使用到了Redis，用Redis做事务，四个微服务使用的是同一个Redis实例。
-保存 Redis 访问凭证的 ConfigMap 模板如下：
+
+用户基于 [redis-credentials.yaml](deployment/configmap-templates/redis-credentials.yaml) 模板文件，将实际环境中的Redis（DCS）访问信息填到模板文件中。
+[redis-credentials.yaml](deployment/configmap-templates/redis-credentials.yaml) 模板文件内容如下：
 
 ```
 kind: ConfigMap
@@ -88,12 +93,10 @@ apiVersion: v1
 metadata:
   name: redis-credential
   namespace: default
-  selfLink: /api/v1/namespaces/default/secrets/redis-credential
 data:
-  cse.tcc.transaction.redis.host: "${redis-host}"
-  cse.tcc.transaction.redis.port: "${redis-port}"
-  cse.tcc.transaction.redis.password: ${redis-password}
-
+  cse.tcc.transaction.redis.host: "192.168.244.231"
+  cse.tcc.transaction.redis.port: "6379"
+  cse.tcc.transaction.redis.password: redis-password
 ```
 #### 5. 卷
 cse-credential 这个 ConfigMap 是通过挂接卷的方式到容器中使用，挂接的卷的目录为: /opt/CSE/etc/cipher
