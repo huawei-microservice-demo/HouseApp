@@ -6,7 +6,7 @@
 2. 到项目根目录，执行 ```maven install -f pom.xml -s settings.xml ``` 编译
 
 #### 2. build docker images
-1. 到项目的 deployment 目录
+1. 到项目的根目录
 2. 执行 ```bash build-images.sh build <your tag>``` 本地构建镜像
 3. 在 ServiceStage 镜像仓库创建 namespace/仓库 
 4. 执行 docker login 登录到远程镜像中心
@@ -15,9 +15,7 @@
 ### Deploy
 #### 1. 创建RDS（MySQL），并创建业务数据库与表
 1. 创建RDS(MySQL)，设置好用户密码，并记录下登录地址
-2. 登录到MySQL，执行 deployment/sql 目录下的三个sql文件，创建对应的库与表
-3. 创建数据库对应的用户（可选）
-4. MySQL配置如下
+2. MySQL配置如下
 ```
 MySQL 版本：5.7
 实例规格：4C16G
@@ -61,7 +59,7 @@ data:
 
 #### 4. 创建访问RDS（MySQL）所需的凭证
 访问MySQL的凭证保存在 ServiceStage 的 ConfigMap 中，通过环境变量的方式导出给应用使用。
-本应用中， user-service/account-service/product-service 使用到了数据库 user_db/account_db/product_db ，需要创建三个 ConfigMap ，名称分别为：mysql-userdb/mysql-accountdb/mysql-productdb 。
+本应用中， user-service/account-service/product-service 使用到了数据库 user_db/account_db/product_db ，需要创建三个 ConfigMap ，名称分别为：**mysql-userdb/mysql-accountdb/mysql-productdb** 。
 
 保存 MySQL 访问凭证的 ConfigMap 模板如下：
 
@@ -71,12 +69,12 @@ apiVersion: v1
 metadata:
   name: mysql-credential-template
   namespace: default
-  selfLink: /api/v1/namespaces/default/secrets/mysql-credential-template
 data:
-  db.url: jdbc:mysql://host:port/db_name
-  db.driver: com.mysql.jdbc.Driver
-  db.username: username
-  db.password: password
+  db.host: "${host}"
+  db.port: "${port}"
+  db.dbname: ${dbname}
+  db.username: ${username}
+  db.password: ${password}
 ```
 
 #### 5. 创建访问DCS（Redis）所需的凭证
@@ -92,9 +90,9 @@ metadata:
   namespace: default
   selfLink: /api/v1/namespaces/default/secrets/redis-credential
 data:
-  cse.tcc.transaction.redis.host: redis-host
-  cse.tcc.transaction.redis.port: redis-port
-  cse.tcc.transaction.redis.password: redis-password
+  cse.tcc.transaction.redis.host: "${redis-host}"
+  cse.tcc.transaction.redis.port: "${redis-port}"
+  cse.tcc.transaction.redis.password: ${redis-password}
 
 ```
 #### 5. 卷
@@ -107,9 +105,11 @@ redis, mysql 访问凭证的 ConfigMap 是通过导出环境变量到容器中�
 2. TCC_REDIS_HOST: configmap: redis-credential, key: cse.tcc.transaction.redis.host
 3. TCC_REDIS_PORT: configmap: redis-credential, key: cse.tcc.transaction.redis.port
 4. TCC_REDIS_PASSWD: configmap: redis-credential, key: cse.tcc.transaction.redis.password
-5. DB_URL: configmap: mysql-xxx_db, key: db.url
-6. DB_USERNAME: configmap: mysql-xxx_db, key: db.username
-7. DB_PASSWD: configmap: mysql-xxx_db, key: db.password
+5. DB_HOST: configmap: mysql-xxx_db, key: db.host
+6. DB_PORT: configmap: mysql-xxx_db, key: db.port
+7. DB_NAME: configmap: mysql-xxx_db, key: db.dbname
+8. DB_USERNAME: configmap: mysql-xxx_db, key: db.username
+9. DB_PASSWD: configmap: mysql-xxx_db, key: db.password
 
 #### 7. 镜像版本
 部署堆栈的时候，需要输入各个微服务正确的镜像版本

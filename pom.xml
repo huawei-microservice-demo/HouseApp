@@ -97,6 +97,7 @@
         <module>product-service</module>
         <module>user-service</module>
         <module>tx-coordinator</module>
+        <module>init-db</module>
     </modules>
 
     <build>
