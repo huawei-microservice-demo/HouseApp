@@ -60,11 +60,11 @@ data:
 #### 4. 创建访问RDS（MySQL）所需的凭证
 访问MySQL的凭证保存在 ServiceStage 的 ConfigMap 中，通过环境变量的方式导出给应用使用。
 本应用中， user-service/account-service/product-service 使用到了数据库 user_db/account_db/product_db ，需要创建三个 ConfigMap，三个 ConfigMap 的模板下载地址：
-- [user_db](deployment/configmap-templates/mysql-userdb.yaml)
-- [account_db](deployment/configmap-templates/mysql-accountdb.yaml)
-- [product_db](deployment/configmap-templates/mysql-productdb.yaml)
+- [mysql-userdb.yaml](deployment/configmap-templates/mysql-userdb.yaml)
+- [mysql-accountdb.yaml](deployment/configmap-templates/mysql-accountdb.yaml)
+- [mysql-productdb.yaml](deployment/configmap-templates/mysql-productdb.yaml)
 
-下面是 [user_db](deployment/configmap-templates/mysql-userdb.yaml) 模板的内容，**需要用户将data内的值修改为实际环境中对应的值**：
+下面是 [mysql-userdb.yaml](deployment/configmap-templates/mysql-userdb.yaml) 模板的内容，**需要用户将data内的值修改为实际环境中对应的值**：
 
 ```
 kind: ConfigMap
