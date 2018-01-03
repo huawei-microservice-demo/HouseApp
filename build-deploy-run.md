@@ -115,4 +115,4 @@ redis, mysql 访问凭证的 ConfigMap 是通过导出环境变量到容器中�
 部署堆栈的时候，需要输入各个微服务正确的镜像版本
 
 ## 使用 DevCloud 流水线 Build/Deploy
-Doing...
+[DevCloud](devcloud/)
