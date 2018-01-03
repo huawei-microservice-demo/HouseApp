@@ -72,7 +72,7 @@ fi
 
 RED='\033[0;31m'
 NC='\033[0m'
-SERVICES_PATTERN="*-service|*-website|loadtestclient|tx-coordinator"
+SERVICES_PATTERN="*-service|*-website|loadtestclient|tx-coordinator|init-db"
 
 CMD=$1
 TAG=$2
