@@ -119,3 +119,8 @@ redis, mysql 访问凭证的 ConfigMap 是通过导出环境变量到容器中�
 
 ## 使用 DevCloud 流水线 Build/Deploy
 [DevCloud](devcloud/)
+
+## 访问应用
+部署成功后，在 ServiceStage 的 应用上线 功能中找到 **edge-service** ，查看详情找到访问方式，追加URL访问：**http://eip:31080/ui/customer-website/login.html** 。
+
+打开首页后，以 ```[user0,user99]``` 之间任何一个用户登录，密码为 ```test``` ，登录成功之后点 ```重置数据按钮``` ，成功后注销当前用户，再次登录，即可使用其他功能。
