@@ -66,17 +66,18 @@ function push_images() {
 }
 
 if [ $# -lt 2 ]; then
-	echo "usage: $0 <build|push> <tag> [remote repo]"
+	echo "usage: $0 <build|push> <tag> [service pattern] [remote repo]"
 	exit 1
 fi
 
 RED='\033[0;31m'
 NC='\033[0m'
-SERVICES_PATTERN="*-service|*-website|loadtestclient|tx-coordinator|init-db"
 
 CMD=$1
 TAG=$2
-REMOTE_REPO=$3
+SERVICES_PATTERN=$3
+SERVICES_PATTERN="${SERVICES_PATTERN:-"*-service|*-website|loadtestclient|tx-coordinator|init-db"}"
+REMOTE_REPO=$4
 REMOTE_REPO="${REMOTE_REPO:-"100.125.0.198:20202/maoxuepeng6459"}"
 
 RELATIVE_PATH="`dirname $0`"
