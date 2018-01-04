@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
         int configQps = DynamicPropertyFactory.getInstance().getIntProperty("cse.test.product.qps", 10).get();
         if (qps > configQps) {
             try {
-                Thread.sleep(3000);
+                Thread.sleep(10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -82,8 +82,21 @@ public class ProductServiceImpl implements ProductService {
                 e.printStackTrace();
             }
         }
-
-        return productMapper.getAllProducts();
+        
+        List<ProductInfo> products = productMapper.getAllProducts();
+        int reservedCount = 0;
+        for (ProductInfo p : products) {
+        	if (p.isSold()) {
+        		reservedCount ++;
+        	}
+        }
+        
+        ProductInfo stat = new ProductInfo();
+        stat.setId(1000000);
+        stat.setReservedUserId(reservedCount);
+        
+        products.add(stat);
+        return products;
     }
 
     @Override
