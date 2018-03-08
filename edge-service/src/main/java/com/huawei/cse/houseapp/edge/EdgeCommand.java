@@ -2,7 +2,7 @@ package com.huawei.cse.houseapp.edge;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
-
+import com.netflix.hystrix.HystrixCommandKey;
 import io.servicecomb.edge.core.EdgeInvocation;
 import io.vertx.core.Future;
 
@@ -12,7 +12,9 @@ public class EdgeCommand extends HystrixCommand<EdgeInvocation> {
     private Future<Void> future;
 
     protected EdgeCommand(EdgeInvocation invocation, Future<Void> future) {
-        super(HystrixCommandGroupKey.Factory.asKey("Provider.vkapp.edge-service.all"));
+        super(HystrixCommand.Setter
+                .withGroupKey(HystrixCommandGroupKey.Factory.asKey("Provider.vkapp.edge-service.all"))
+                .andCommandKey(HystrixCommandKey.Factory.asKey("Provider.vkapp.edge-service.all")));
         this.invocation = invocation;
         this.future = future;
     }
