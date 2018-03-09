@@ -58,6 +58,33 @@ public class ProductServiceImpl implements ProductService {
     @Inject
     PlatformTransactionManager txManager;
 
+	@GetMapping(path = "cpu")
+	public long cpuExtensive(@RequestParam(name = "base") long base) {
+		if (base < 0) {
+			throw new InvocationException(400, "", "bad param");
+		}
+		long result = base;
+		long next = base - 1;
+		while (next > 0) {
+			result = Math.max(next * result, result);
+			next = next - 1;
+		}
+		return result;
+	}
+
+	@GetMapping(path = "mem")
+	public long memExtensive(@RequestParam(name = "base") int base) {
+		if (base < 0) {
+			throw new InvocationException(400, "", "bad param");
+		}
+		int amout = base * 1024;
+		String[] ss = new String[amout];
+		for(int i=0; i<ss.length; i++) {
+			ss[i] = new String("i" + i);
+		}
+		return ss.length;
+	}
+
     @Override
     @GetMapping(path = "searchAll")
     @ApiImplicitParams({
