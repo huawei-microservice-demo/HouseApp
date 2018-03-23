@@ -16,8 +16,8 @@
 
 package com.huawei.cse.houseapp.edge;
 
-import io.servicecomb.foundation.common.utils.BeanUtils;
-import io.servicecomb.foundation.common.utils.Log4jUtils;
+import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
 
 public class EdgeMain {
     public static void main(String[] args) throws Exception {

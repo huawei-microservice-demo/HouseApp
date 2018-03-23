@@ -22,7 +22,10 @@ cse:
     address: 0.0.0.0:18081
     server:
       thread-count: 10
-
+  credentials:
+    accessKey: BUDCVWSAW04UZVLSZBQR
+    secretKey: BHixEctCJFbTkPUVUUjRDSeVwMAknlAy5oB7idgR
+    akskCustomCipher: default
   handler:
     chain:
       Provider:

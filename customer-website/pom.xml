@@ -17,11 +17,11 @@
             <artifactId>cse-solution-service-engine</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>io.servicecomb</groupId>
+                    <groupId>org.apache.servicecomb</groupId>
                     <artifactId>transport-highway</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.servicecomb</groupId>
+                    <groupId>org.apache.servicecomb</groupId>
                     <artifactId>transport-rest-vertx</artifactId>
                 </exclusion>
             </exclusions>

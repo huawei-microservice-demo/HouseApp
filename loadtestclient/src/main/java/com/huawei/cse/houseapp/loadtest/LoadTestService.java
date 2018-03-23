@@ -4,6 +4,8 @@ import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.servicecomb.provider.pojo.RpcReference;
+import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huawei.cse.houseapp.customer.api.CustomerService;
-
-import io.servicecomb.provider.pojo.RpcReference;
-import io.servicecomb.provider.rest.common.RestSchema;
 
 @RestSchema(schemaId = "load")
 @RequestMapping(path = "/")

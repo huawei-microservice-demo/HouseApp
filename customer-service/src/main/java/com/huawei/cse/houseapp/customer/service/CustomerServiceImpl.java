@@ -2,6 +2,9 @@ package com.huawei.cse.houseapp.customer.service;
 
 import java.util.List;
 
+import org.apache.servicecomb.provider.pojo.RpcReference;
+import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +20,6 @@ import com.huawei.cse.houseapp.product.api.ProductService;
 import com.huawei.cse.houseapp.user.api.UserService;
 import com.huawei.paas.cse.tcc.annotation.TccTransaction;
 
-import io.servicecomb.provider.pojo.RpcReference;
-import io.servicecomb.provider.rest.common.RestSchema;
-import io.servicecomb.swagger.invocation.exception.InvocationException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 

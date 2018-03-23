@@ -2,6 +2,9 @@ package com.huawei.cse.houseapp.user.service;
 
 import javax.inject.Inject;
 
+import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.serviceregistry.RegistryUtils;
+import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +18,6 @@ import com.huawei.cse.houseapp.user.dao.UserMapper;
 import com.huawei.paas.cse.tcc.annotation.TccTransaction;
 import com.netflix.config.DynamicPropertyFactory;
 
-import io.servicecomb.provider.rest.common.RestSchema;
-import io.servicecomb.serviceregistry.RegistryUtils;
-import io.servicecomb.swagger.invocation.exception.InvocationException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 

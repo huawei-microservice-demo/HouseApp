@@ -21,8 +21,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.servicecomb.edge.core.AbstractEdgeDispatcher;
-import io.servicecomb.edge.core.EdgeInvocation;
+import org.apache.servicecomb.edge.core.AbstractEdgeDispatcher;
+import org.apache.servicecomb.edge.core.EdgeInvocation;
 import io.vertx.core.Future;
 import io.vertx.ext.web.Cookie;
 import io.vertx.ext.web.Router;

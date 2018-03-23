@@ -12,6 +12,6 @@
 	</context-param>
 	
 	<listener>
-		<listener-class>io.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class> 
+		<listener-class>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class> 
 	</listener> 
 </web-app>

@@ -19,6 +19,10 @@ cse:
       serverUri: https://cse.cn-north-1.myhwclouds.com:443
   references:
     version-rule: 0.0.0+
+  credentials:
+    accessKey: BUDCVWSAW04UZVLSZBQR
+    secretKey: BHixEctCJFbTkPUVUUjRDSeVwMAknlAy5oB7idgR
+    akskCustomCipher: default
 
   rest:
     address: 0.0.0.0:18080

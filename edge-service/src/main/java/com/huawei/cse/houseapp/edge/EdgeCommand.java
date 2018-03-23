@@ -1,9 +1,11 @@
 package com.huawei.cse.houseapp.edge;
 
+import org.apache.servicecomb.edge.core.EdgeInvocation;
+
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandKey;
-import io.servicecomb.edge.core.EdgeInvocation;
+
 import io.vertx.core.Future;
 
 public class EdgeCommand extends HystrixCommand<EdgeInvocation> {

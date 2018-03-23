@@ -1,20 +1,20 @@
 package com.huawei.cse.houseapp.coordinator;
 
 
-import io.servicecomb.foundation.common.net.NetUtils;
-import io.servicecomb.foundation.common.utils.BeanUtils;
-import io.servicecomb.foundation.common.utils.Log4jUtils;
-import io.servicecomb.serviceregistry.RegistryUtils;
-import io.servicecomb.serviceregistry.api.registry.MicroserviceInstance;
-import io.servicecomb.serviceregistry.client.ServiceRegistryClient;
-import io.undertow.Undertow;
-
 import java.util.HashMap;
 
+import org.apache.servicecomb.foundation.common.net.NetUtils;
+import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
+import org.apache.servicecomb.serviceregistry.RegistryUtils;
+import org.apache.servicecomb.serviceregistry.api.registry.MicroserviceInstance;
+import org.apache.servicecomb.serviceregistry.client.ServiceRegistryClient;
 import org.jboss.jbossts.star.service.TMApplication;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import io.undertow.Undertow;
 
 public class CoordinatorMain {
     private static final int PORT = 8099;

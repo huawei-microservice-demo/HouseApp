@@ -5,6 +5,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.inject.Inject;
 
+import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,8 +23,6 @@ import com.huawei.cse.houseapp.product.dao.ProductMapper;
 import com.huawei.paas.cse.tcc.annotation.TccTransaction;
 import com.netflix.config.DynamicPropertyFactory;
 
-import io.servicecomb.provider.rest.common.RestSchema;
-import io.servicecomb.swagger.invocation.exception.InvocationException;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
