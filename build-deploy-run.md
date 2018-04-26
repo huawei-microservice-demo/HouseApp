@@ -5,7 +5,7 @@
 cd /home
 yum update
 yum install -y git  wget
-git clone https://github.com/huawei-microservice-demo/HouseApp.git
+git clone https://github.com/JeffyLiu003/HouseApp.git
 wget http://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
 wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-linux-x64.tar.gz
 tar zxf apache-maven-3.5.3-bin.tar.gz
