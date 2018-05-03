@@ -58,11 +58,58 @@ public class ProductServiceImpl implements ProductService {
     @Inject
     PlatformTransactionManager txManager;
 
+        @GetMapping(path = "cpu")
+        public long cpuExtensive(@RequestParam(name = "base") long base) {
+                faultInjection();
+                if (base < 0) {
+                        throw new InvocationException(400, "", "bad param");
+                }
+                long result = base;
+                long next = base - 1;
+                while (next > 0) {
+                        result = Math.max(next * result, result);
+                        next = next - 1;
+                }
+                return result;
+        }
+
+        @GetMapping(path = "mem")
+        public long memExtensive(@RequestParam(name = "base") int base) {
+                faultInjection();
+                if (base < 0) {
+                        throw new InvocationException(400, "", "bad param");
+                }
+                int amout = base * 1024;
+                String[] ss = new String[amout];
+                for(int i=0; i<ss.length; i++) {
+                        ss[i] = new String("i" + i);
+                }
+                return ss.length;
+        }
+
+        private void faultInjection() {
+                int delay = DynamicPropertyFactory.getInstance().getIntProperty("cse.test.fault.delay", 0).get();
+                if(delay > 1) {
+                        try {
+                                Thread.sleep(delay);
+                        } catch (InterruptedException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }
+                int exception = DynamicPropertyFactory.getInstance().getIntProperty("cse.test.fault.exception", 0).get();
+                if(exception > 1) {
+                        throw new InvocationException(500, "", "fault injected bad request");
+                }
+        }
+
     @Override
     @GetMapping(path = "searchAll")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", dataType = "integer", format = "int32", paramType = "query")})
     public List<ProductInfo> searchAll(@RequestParam(name = "userId") int userId) {
+        faultInjection();
+
         double qps = reqCount.incrementAndGet() * 1000.0d / (System.currentTimeMillis() - lastStatTime.get());
         int configQps = DynamicPropertyFactory.getInstance().getIntProperty("cse.test.product.qps", 10).get();
         if (qps > configQps) {
