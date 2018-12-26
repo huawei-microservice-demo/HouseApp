@@ -34,7 +34,7 @@ public class LoginDispatcher extends AbstractEdgeDispatcher {
 
     protected void onRequest(RoutingContext context) {
         EdgeInvocation invoker = new EdgeInvocation() {
-            protected void sendResponse(Response response) throws Exception {
+            protected void sendResponse(Response response) {
                 try {
                     if (response.isSuccessed() && (response.getResult() != null && (long)response.getResult() != -1)) {
                         Cookie cookie = Cookie.cookie("session-id", String.valueOf((long)response.getResult()));
