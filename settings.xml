@@ -132,7 +132,6 @@ under the License.
     -->
   </servers>
 
-  
   <!-- mirrors
    | This is a list of mirrors to be used in downloading artifacts from remote repositories.
    |
@@ -157,13 +156,12 @@ under the License.
       <url>http://my.repository.com/repo/path</url>
     </mirror>
      -->
-    <mirror>
-      <id>mirrorId</id>
-      <mirrorOf>*</mirrorOf>
-      <name>Mirror of central repository.</name>
-      <url>http://117.78.32.218/nexus/content/groups/public</url>
-    </mirror>
- </mirrors>
+	<mirror>
+		<id>huaweicloud</id>
+		<mirrorOf>*,!HuaweiCloudSDK</mirrorOf>
+		<url>https://repo.huaweicloud.com/repository/maven/</url>
+	</mirror>
+  </mirrors>
 
   <!-- profiles
    | This is a list of profiles which can be activated in a variety of ways, and which can modify
@@ -216,7 +214,22 @@ under the License.
       </repositories>
     </profile>
     -->
+    <profile>
+      <id>staging</id>
 
+      <repositories>
+        <repository>
+            <id>HuaweiCloudSDK</id>
+            <url>https://repo.huaweicloud.com/repository/maven/huaweicloudsdk/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+      </repositories>
+    </profile>
     <!--
      | Here is another profile, activated by the system property 'target-env' with a value of 'dev',
      | which provides a specific path to the Tomcat instance. To use this, your plugin configuration
@@ -251,24 +264,13 @@ under the License.
       </properties>
     </profile>
     -->
-	<!--<profile>
-		<id>cse-profile</id>
-		<repositories>
-			<repository>
-				<id>cse-repo</id>
-				<name>cse-repo</name>
-				<url>http://117.78.31.114:32700/nexus/content/repositories/cse</url>
-			</repository>
-		</repositories>
-	</profile>-->
   </profiles>
-  
+
   <!-- activeProfiles
    | List of profiles that are active for all builds.
-   |
+   |  -->
   <activeProfiles>
-    <activeProfile>alwaysActiveProfile</activeProfile>
-    <activeProfile>anotherAlwaysActiveProfile</activeProfile>
+    <activeProfile>staging</activeProfile>
   </activeProfiles>
-  -->
+
 </settings>
