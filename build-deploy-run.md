@@ -6,11 +6,11 @@ cd /home
 yum update
 yum install -y git  wget
 git clone https://github.com/JeffyLiu003/HouseApp.git
-wget http://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
-wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-linux-x64.tar.gz
-tar zxf apache-maven-3.5.3-bin.tar.gz
-tar zxf jdk-8u161-linux-x64.tar.gz
-export PATH=$PATH:/home/apache-maven-3.5.3/bin:/home/jdk1.8.0_161/bin
+wget http://mirrors.hust.edu.cn/apache/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz
+wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" https://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/jdk-8u191-linux-x64.tar.gz
+tar zxf apache-maven-3.6.0-bin.tar.gz
+tar zxf jdk-8u191-linux-x64.tar.gz
+export PATH=$PATH:/home/apache-maven-3.6.0/bin:/home/jdk1.8.0_191/bin
 mvn -v 
 java -version
 ```
@@ -18,7 +18,7 @@ java -version
 ### Build
 #### 1. maven install
 1. 克隆代码到本地
-2. 到项目根目录，执行 ```maven install -f pom.xml -s settings.xml ``` 编译
+2. 到项目根目录，执行 ```mvn install -f pom.xml -s settings.xml ``` 编译
 
 #### 2. build docker images
 1. 到项目的根目录
