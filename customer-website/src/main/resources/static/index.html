@@ -200,13 +200,13 @@
                             <input type="button" onclick="startTest()" value="开启自动测试（弱一致）" class="button" />
                         </form>
                 </div>
-
+<!--
                 <div class="product_list_header_wwd" style="float: left;margin-top: 32px;margin-left:10px ;">
                         <form action="/api/loadtestclient/start?threadCount=10&userBegin=1&userEnd=10">
                             <input type="button" onclick="startTest2PC()" value="开启自动测试（强一致）" class="button" />
                         </form>
                 </div>
-
+-->
                 <div class="product_list_header_wwd" style="float: left;margin-top: 32px;margin-left:10px ;">
                         <form action="/api/loadtestclient/start?threadCount=10&userBegin=1&userEnd=10">
                             <input type="button" onclick="startTestNoTransaction()" value="开启自动测试（无事务）" class="button" />
@@ -346,7 +346,7 @@
                   formData.price = price;
                   $.ajax({
                     type: 'POST',
-                    url: "/api/customer-service/buy2pc",
+                    url: "/api/customer-service/buy",
                     data: formData,
                     success: function a(data) {
                         window.alert("抢购成功");

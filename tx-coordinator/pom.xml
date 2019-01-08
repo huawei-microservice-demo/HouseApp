@@ -35,6 +35,11 @@
             <groupId>org.jboss.narayana.arjunacore</groupId>
             <artifactId>arjuna</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.huawei.cse.houseapp</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,0 +1,34 @@
+cse-config-order: 10
+
+APPLICATION_ID: houseapp
+
+service_description:
+  version: 0.0.1
+  environment: development
+
+cse:
+  service:
+    registry:
+      address: https://cse.cn-north-1.myhuaweicloud.com
+      instance:
+        watch: false
+  config:
+    client:
+      serverUri: https://cse.cn-north-1.myhuaweicloud.com
+      refreshMode: 1
+      refresh_interval: 5000
+  monitor:
+    client:
+      serverUri: https://cse.cn-north-1.myhuaweicloud.com
+      enable: false
+  credentials:
+    accessKey: xx
+    secretKey: xx
+    akskCustomCipher: default
+
+  handler:
+    chain:
+      Provider:
+        default: perf-stats,qps-flowcontrol-provider,bizkeeper-provider,tcc-provider # twoPC-provider
+      Consumer:
+        default: perf-stats,qps-flowcontrol-consumer,loadbalance,bizkeeper-consumer,tcc-consumer # twoPC-consumer
