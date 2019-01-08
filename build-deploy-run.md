@@ -24,8 +24,9 @@ java -version
 1. 到项目的根目录
 2. 执行 ```bash build-images.sh build <your tag>``` 本地构建镜像
 3. 在 ServiceStage 镜像仓库创建 namespace/仓库 
-4. 执行 docker login 登录到远程镜像中心
-5. 执行 ```bash build-images.sh push <your tag> <your repo namespace> ``` 将本地镜像推送到远程仓库
+4. 参考SWR仓库指导，执行 docker login 登录到远程镜像中心
+5. 修改build-images.sh， 将REMOTE_REPO后的 100.125.0.198:20202/maoxuepeng6459修改为自己的仓库地址，例如：swr.cn-north-1.myhuaweicloud.com/myrepo
+5. 执行 ```bash build-images.sh push <your tag>  ``` 将本地镜像推送到远程仓库
 
 ### Deploy
 #### 1. 创建RDS（MySQL），并创建业务数据库与表
